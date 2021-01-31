@@ -4,6 +4,7 @@
 // Using P5.Gui. Copyright (c) 2016 Martin Schneider @bitcraftlab https://github.com/bitcraftlab/p5.gui
 // By Richard Banks. January 2021.
 
+//#region GLOBAL VARIABLES
 var flock;
 var pillars = []; // An array for the static pillars
 var createBoidOnClick = true;
@@ -48,6 +49,9 @@ var cohesionStep = 0.1;
 var gui; // P5.GUI control
 var guiVisible;
 
+//#endregion
+
+// *** SETUP ***
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
@@ -72,6 +76,7 @@ function setup() {
   }
 }
 
+// *** DRAW ***
 function draw() {
   background(50);
 
@@ -100,17 +105,20 @@ function draw() {
   });
 }
 
-// Add a new boid into the System
+// *** EVENTS ***
+// -------------------------------
+
+// EVENT mousePressed 
 function mousePressed(event) {
   if (createBoidOnClick) flock.addBoid(new Boid(mouseX, mouseY));
 }
 
-// WindowResized event
+// EVENT windowResized
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
-// keyReleased event
+// EVENT keyReleased 
 function keyReleased() {
   if (key == "s" || key == "S") saveCanvas("flocking", "png");
   if (key == "b" || key == "B") createBoidOnClick = true;
@@ -130,7 +138,10 @@ function keyReleased() {
   }
 }
 
-// THE FLOCK (a list of Boid objects)
+// *** CLASSES ***
+// --------------------------------
+
+// CLASS Flock (a list of Boid objects)
 class Flock {
   constructor() {
     this.boids = []; // Initialize the ArrayList
@@ -151,7 +162,7 @@ class Flock {
   }
 }
 
-// THE BOID CLASS
+// CLASS Boid (a flocking entity)
 class Boid {
   constructor(x, y) {
     this.acceleration = createVector(0, 0);
@@ -327,7 +338,7 @@ class Boid {
   }
 }
 
-// THE PILLAR CLASS
+// CLASS Pillar (Repells a Boid)
 class Pillar {
   constructor(x, y) {
     this.position = createVector(x, y);
