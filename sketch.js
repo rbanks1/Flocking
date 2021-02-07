@@ -58,13 +58,13 @@ function setup() {
   gui = createGui("Settings").setPosition(10, 140);
   gui.addGlobals(
     "maxspeed",
-    //"maxforce",
-    //"rScale",
+    "maxforce",
+    "rScale",
     "seperation",
-    "seperationPillars"
-    //"alignment",
-    //"cohesion",
-    //"createBoidOnClick"
+    "seperationPillars",
+    "alignment",
+    "cohesion",
+    "createBoidOnClick"
   );
   gui.hide();
   guiVisible = false;
@@ -80,17 +80,7 @@ function setup() {
 function draw() {
   background(50);
 
-  fill(200);
-  noStroke();
-  text("S: Save Canvas", 10, 20);
-  text("G: Show/Hide Settings", 10, 80);
-  text("DEL: Clear everything", 10, 100);
-  if(createBoidOnClick) fill(255);
-  else fill(200);
-  text("B: Click to create bird [" + flock.boids.length + "]", 10, 40);
-  if(!createBoidOnClick) fill(255);
-  else fill(200);
-  text("P: Click to create pillar [" + pillars.length + "]", 10, 60);
+  drawInstructions();
 
   flock.run();
   if (mouseIsPressed && mouseButton == LEFT && !createBoidOnClick) {
@@ -136,6 +126,24 @@ function keyReleased() {
     flock.clear();
     pillars = [];
   }
+}
+
+// ** UTILITY **
+//----------------------------
+
+// Write the instructions in the top-left of the page
+function drawInstructions(){
+  fill(200);
+  noStroke();
+  text("S: Save Canvas", 10, 20);
+  text("G: Show/Hide Settings", 10, 80);
+  text("DEL: Clear everything", 10, 100);
+  if(createBoidOnClick) fill(255);
+  else fill(200);
+  text("B: Click to create bird [" + flock.boids.length + "]", 10, 40);
+  if(!createBoidOnClick) fill(255);
+  else fill(200);
+  text("P: Click to create pillar [" + pillars.length + "]", 10, 60);
 }
 
 // *** CLASSES ***
